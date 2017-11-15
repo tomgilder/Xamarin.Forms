@@ -32,15 +32,15 @@ namespace Xamarin.Forms.Controls.Issues
 		}
 
 
-		public void OnItemTapped(object sender, ItemTappedEventArgs e)
-		{
-			Log.Text = string.Format("Item '{0}' tapped\n{1}", e.Item, Log.Text);
-		}
+		//public void OnItemTapped(object sender, ItemTappedEventArgs e)
+		//{
+		//	Log.Text = string.Format("Item '{0}' tapped\n{1}", e.Item, Log.Text);
+		//}
 
-		public void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
-		{
-			Log.Text = string.Format("Item '{0}' selected\n{1}", e.SelectedItem, Log.Text);
-		}
+		//public void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+		//{
+		//	Log.Text = string.Format("Item '{0}' selected\n{1}", e.SelectedItem, Log.Text);
+		//}
 
 		#endif
 
