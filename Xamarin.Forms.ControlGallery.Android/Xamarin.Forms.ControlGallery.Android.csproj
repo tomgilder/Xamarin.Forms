@@ -260,7 +260,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
     <AndroidResource Include="Resources\layout\Toolbar.axml">
       <SubType>Designer</SubType>
