@@ -127,11 +127,15 @@
     <EmbeddedResource Include="Properties\Xamarin.Forms.Maps.UWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-  <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-    <Version>6.0.1</Version>
-  </PackageReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Xamarin.Forms.Core\Xamarin.Forms.Core.csproj">
+      <Project>{57b8b73d-c3b5-4c42-869e-7b2f17d354ac}</Project>
+      <Name>Xamarin.Forms.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Xamarin.Forms.Maps\Xamarin.Forms.Maps.csproj">
       <Project>{7d13bac2-c6a4-416a-b07e-c169b199e52b}</Project>
       <Name>Xamarin.Forms.Maps</Name>

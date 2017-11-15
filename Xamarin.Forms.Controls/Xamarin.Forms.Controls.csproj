@@ -69,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="controlgallery.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="LegacyRepro\Page1.xaml">
