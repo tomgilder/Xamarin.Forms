@@ -120,7 +120,7 @@ function CheckForFailure
 $failed = $false
 
 # Core
-$dllPath = "Xamarin.Forms.Core\bin\Debug\Xamarin.Forms.Core.dll"
+$dllPath = "Xamarin.Forms.Core\bin\Debug\netstandard2.0\Xamarin.Forms.Core.dll"
 $docsPath = "docs\Xamarin.Forms.Core"
 $changes = Update $dllPath $docsPath
 $changes = ($changes | % { $_.Replace("/", "+") }) # Fix-up for nested types
@@ -133,7 +133,7 @@ if(-not $failed){
 Write-Host
 
 # Xaml
-$dllPath = "Xamarin.Forms.Xaml\bin\Debug\Xamarin.Forms.Xaml.dll"
+$dllPath = "Xamarin.Forms.Xaml\bin\Debug\netstandard2.0\Xamarin.Forms.Xaml.dll"
 $docsPath = "docs\Xamarin.Forms.Xaml"
 $changes = Update $dllPath $docsPath
 $changes = ($changes | % { $_.Replace("/", "+") }) # Fix-up for nested types
@@ -146,7 +146,7 @@ if(-not $failed){
 Write-Host
 
 # Maps
-$dllPath = "Xamarin.Forms.Maps\bin\Debug\Xamarin.Forms.Maps.dll"
+$dllPath = "Xamarin.Forms.Maps\bin\Debug\netstandard2.0\Xamarin.Forms.Maps.dll"
 $docsPath = "docs\Xamarin.Forms.Maps"
 $changes = Update $dllPath $docsPath
 $changes = ($changes | % { $_.Replace("/", "+") }) # Fix-up for nested types
