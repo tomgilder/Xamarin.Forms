@@ -93,6 +93,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Xamarin.Forms.Core\Properties\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Animations\BaseAnimation.cs" />
     <Compile Include="Animations\FloatAnimation.cs" />
     <Compile Include="Cells\CellBase.cs" />
