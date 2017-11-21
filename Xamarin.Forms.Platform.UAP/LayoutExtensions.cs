@@ -2,13 +2,7 @@
 using Windows.UI.Xaml;
 using WSize = Windows.Foundation.Size;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public delegate SizeRequest? GetDesiredSizeDelegate(NativeViewWrapperRenderer renderer, double widthConstraint, double heightConstraint);
 

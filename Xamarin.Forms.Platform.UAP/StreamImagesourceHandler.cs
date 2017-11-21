@@ -4,13 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media.Imaging;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif 
 {
 	public sealed class StreamImageSourceHandler : IImageSourceHandler
 	{

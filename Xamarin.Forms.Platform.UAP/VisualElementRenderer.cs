@@ -3,18 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Windows.Foundation;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public class VisualElementRenderer<TElement, TNativeElement> : Panel, IVisualElementRenderer, IDisposable, IEffectControlProvider where TElement : VisualElement
 																																	  where TNativeElement : FrameworkElement

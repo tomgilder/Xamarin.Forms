@@ -1,13 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml.Controls;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	internal class FileImageSourcePathConverter : Windows.UI.Xaml.Data.IValueConverter
 	{

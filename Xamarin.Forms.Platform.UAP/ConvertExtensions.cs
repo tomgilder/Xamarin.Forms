@@ -1,12 +1,6 @@
 ﻿using Windows.UI.Xaml.Media;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	internal static class ConvertExtensions
 	{

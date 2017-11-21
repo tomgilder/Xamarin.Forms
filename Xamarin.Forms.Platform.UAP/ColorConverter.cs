@@ -2,13 +2,7 @@
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public sealed class ColorConverter : Windows.UI.Xaml.Data.IValueConverter
 	{

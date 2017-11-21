@@ -5,13 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Xamarin.Forms.Internals;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	internal sealed class WindowsExpressionSearch : IExpressionSearch
 	{

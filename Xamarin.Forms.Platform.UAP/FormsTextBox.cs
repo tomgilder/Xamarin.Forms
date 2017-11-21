@@ -8,13 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	/// <summary>
 	///     An intermediate class for injecting bindings for things the default
@@ -124,21 +118,6 @@ namespace Xamarin.Forms.Platform.WinRT
 				// so we can manually handle its background when focused
 				_borderElement = (Border)GetTemplateChild("BorderElement");
 			}
-		}
-
-		protected override void OnGotFocus(RoutedEventArgs e)
-		{
-			base.OnGotFocus(e);
-
-#if !WINDOWS_UWP
-			// If we're on Windows 8.1 phone, the Visual State Manager crashes if we try to 
-			// handle alternate background colors in the focus state; we have to do
-			// it manually here
-			if (Device.Idiom == TargetIdiom.Phone && _borderElement != null)
-			{
-				_borderElement.Background = BackgroundFocusBrush;
-			}
-#endif
 		}
 
 		void DelayObfuscation()

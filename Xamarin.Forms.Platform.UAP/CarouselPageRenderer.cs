@@ -2,17 +2,10 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Controls;
 using Xamarin.Forms.Internals;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public class CarouselPageRenderer : FlipView, IVisualElementRenderer
 	{

@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,13 +6,7 @@ using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 using Xamarin.Forms.Internals;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public sealed class UriImageSourceHandler : IImageSourceHandler
 	{

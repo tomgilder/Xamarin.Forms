@@ -19,13 +19,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Xamarin.Forms.Internals;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	internal abstract class WindowsBasePlatformServices : IPlatformServices
 	{
@@ -120,11 +114,7 @@ namespace Xamarin.Forms.Platform.WinRT
 
 		public bool IsInvokeRequired => !CoreApplication.MainView.CoreWindow.Dispatcher.HasThreadAccess;
 
-#if WINDOWS_UWP
 		public string RuntimePlatform => Device.UWP;
-#else
-		public string RuntimePlatform => Device.WinRT;
-#endif
 
 		public void OpenUriAction(Uri uri)
 		{

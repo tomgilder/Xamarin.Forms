@@ -2,13 +2,7 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public class EntryCellTextBox : TextBox
 	{

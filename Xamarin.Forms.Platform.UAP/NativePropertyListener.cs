@@ -1,13 +1,8 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-#if WINDOWS_UWP
 namespace Xamarin.Forms.Platform.UWP
-#else
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	class NativePropertyListener : DependencyObject, INotifyPropertyChanged
 	{

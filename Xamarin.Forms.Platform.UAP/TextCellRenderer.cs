@@ -4,13 +4,7 @@ using WDataTemplate = Windows.UI.Xaml.DataTemplate;
 using WApplication = Windows.UI.Xaml.Application;
 using Xamarin.Forms.Internals;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public class TextCellRenderer : ICellRenderer
 	{

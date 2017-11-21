@@ -2,13 +2,7 @@
 using System.ComponentModel;
 using Windows.ApplicationModel;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public abstract class WindowsBasePage : Windows.UI.Xaml.Controls.Page
 	{

@@ -2,13 +2,7 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public class TableViewRenderer : ViewRenderer<TableView, Windows.UI.Xaml.Controls.ListView>
 	{

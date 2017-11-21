@@ -4,13 +4,7 @@ using Windows.UI.Xaml.Controls;
 using Xamarin.Forms.Internals;
 using WStyle = Windows.UI.Xaml.Style;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	internal sealed class WindowsResourcesProvider : ISystemResourcesProvider
 	{
@@ -26,11 +20,7 @@ namespace Xamarin.Forms.Platform.WinRT
 				[Device.Styles.CaptionStyleKey] = GetStyle("CaptionTextBlockStyle", prototype),
 				[Device.Styles.ListItemDetailTextStyleKey] = GetStyle("BodyTextBlockStyle", prototype),
 
-#if WINDOWS_UWP
 				[Device.Styles.ListItemTextStyleKey] = GetStyle("BaseTextBlockStyle", prototype),
-#else
-				[Device.Styles.ListItemTextStyleKey] = GetStyle("TitleTextBlockStyle", prototype),
-#endif
 			};
 		}
 

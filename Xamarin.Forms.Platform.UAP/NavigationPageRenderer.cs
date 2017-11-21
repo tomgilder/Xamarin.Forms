@@ -2,25 +2,19 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.Devices.Input;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Xamarin.Forms.Internals;
 
-#if WINDOWS_UWP
+
 using Windows.UI.Core;
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public partial class NavigationPageRenderer : IVisualElementRenderer, ITitleProvider, IToolbarProvider
 	{
@@ -182,12 +176,10 @@ namespace Xamarin.Forms.Platform.WinRT
 				UpdateNavigationBarBackground();
 				UpdateToolbarPlacement();
 
-#if WINDOWS_UWP
 				// Enforce consistency rules on toolbar (show toolbar if top-level page is Navigation Page)
 				_container.ShouldShowToolbar = _parentMasterDetailPage == null && _parentTabbedPage == null;
 				if (_parentTabbedPage != null)
 					Element.Appearing += OnElementAppearing;
-#endif
 
 				Element.PropertyChanged += OnElementPropertyChanged;
 				Element.PushRequested += OnPushRequested;
@@ -218,10 +210,8 @@ namespace Xamarin.Forms.Platform.WinRT
 			_container.SizeChanged -= OnNativeSizeChanged;
 			_container.BackClicked -= OnBackClicked;
 
-#if WINDOWS_UWP
 			if (_parentTabbedPage != null)
 				Element.Appearing -= OnElementAppearing;
-#endif
 
 			SetElement(null);
 			SetPage(null, false, true);
@@ -233,12 +223,10 @@ namespace Xamarin.Forms.Platform.WinRT
 			if (_parentMasterDetailPage != null)
 				_parentMasterDetailPage.PropertyChanged -= MultiPagePropertyChanged;
 
-#if WINDOWS_UWP
 			if (_navManager != null)
 			{
 				_navManager.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
 			}
-#endif
 		}
 
 		protected void OnElementChanged(VisualElementChangedEventArgs e)
@@ -337,10 +325,9 @@ namespace Xamarin.Forms.Platform.WinRT
 				UpdateNavigationBarBackground();
 			else if (e.PropertyName == Page.PaddingProperty.PropertyName)
 				UpdatePadding();
-#if WINDOWS_UWP
+
 			else if (e.PropertyName == PlatformConfiguration.WindowsSpecific.Page.ToolbarPlacementProperty.PropertyName)
 				UpdateToolbarPlacement();
-#endif
 		}
 
 		void OnLoaded(object sender, RoutedEventArgs args)
@@ -348,9 +335,7 @@ namespace Xamarin.Forms.Platform.WinRT
 			if (Element == null)
 				return;
 
-#if WINDOWS_UWP
 			_navManager = SystemNavigationManager.GetForCurrentView();
-#endif
 			Element.SendAppearing();
 			UpdateBackButton();
 			UpdateTitleOnParents();

@@ -2,13 +2,7 @@
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Shapes;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public class BoxViewRenderer : ViewRenderer<BoxView, Windows.UI.Xaml.Shapes.Rectangle>
 	{

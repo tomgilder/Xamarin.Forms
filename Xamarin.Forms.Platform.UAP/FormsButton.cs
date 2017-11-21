@@ -1,15 +1,9 @@
 ﻿using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
-#if WINDOWS_UWP
 using WContentPresenter = Windows.UI.Xaml.Controls.ContentPresenter;
 
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public class FormsButton : Windows.UI.Xaml.Controls.Button
 	{
@@ -19,11 +13,7 @@ namespace Xamarin.Forms.Platform.WinRT
 		public static readonly DependencyProperty BackgroundColorProperty = DependencyProperty.Register(nameof(BackgroundColor), typeof(Brush), typeof(FormsButton),
 			new PropertyMetadata(default(Brush), OnBackgroundColorChanged));
 
-#if WINDOWS_UWP
 		WContentPresenter _contentPresenter;
-#else
-		Border _border;
-#endif
 
 		public Brush BackgroundColor
 		{
@@ -53,11 +43,8 @@ namespace Xamarin.Forms.Platform.WinRT
 		{
 			base.OnApplyTemplate();
 
-#if WINDOWS_UWP
-			_contentPresenter = GetTemplateChild("ContentPresenter") as WContentPresenter;	
-#else
-			_border = GetTemplateChild("Border") as Border;
-#endif
+			_contentPresenter = GetTemplateChild("ContentPresenter") as WContentPresenter;
+
 			UpdateBackgroundColor();
 			UpdateBorderRadius();
 		}
@@ -77,26 +64,16 @@ namespace Xamarin.Forms.Platform.WinRT
 			if (BackgroundColor == null)
 				BackgroundColor = Background;
 
-#if WINDOWS_UWP
 			if (_contentPresenter != null)
 				_contentPresenter.Background = BackgroundColor;
-#else
-			if (_border != null)
-				_border.Background = BackgroundColor;
-#endif
 			Background = Color.Transparent.ToBrush();
 		}
 
 		void UpdateBorderRadius()
 		{
 
-#if WINDOWS_UWP
 			if (_contentPresenter != null)
 				_contentPresenter.CornerRadius = new CornerRadius(BorderRadius);
-#else
-			if (_border != null)
-				_border.CornerRadius = new CornerRadius(BorderRadius);
-#endif
 		}
 	}
 }

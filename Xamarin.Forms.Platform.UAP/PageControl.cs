@@ -1,18 +1,10 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Xamarin.Forms.PlatformConfiguration.WindowsSpecific;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public sealed class PageControl : ContentControl, IToolbarProvider
 	{
@@ -39,7 +31,6 @@ namespace Xamarin.Forms.Platform.WinRT
 		AppBarButton _backButton;
 		CommandBar _commandBar;
 
-#if WINDOWS_UWP
         ToolbarPlacement _toolbarPlacement;
 	    readonly ToolbarPlacementHelper _toolbarPlacementHelper = new ToolbarPlacementHelper();
 
@@ -48,7 +39,6 @@ namespace Xamarin.Forms.Platform.WinRT
 			get { return _toolbarPlacementHelper.ShouldShowToolBar; }
 			set { _toolbarPlacementHelper.ShouldShowToolBar = value; }
 		}
-#endif
 
 		TaskCompletionSource<CommandBar> _commandBarTcs;
 		Windows.UI.Xaml.Controls.ContentPresenter _presenter;
@@ -93,7 +83,6 @@ namespace Xamarin.Forms.Platform.WinRT
 			set { SetValue(ToolbarBackgroundProperty, value); }
 		}
 
-#if WINDOWS_UWP
         public ToolbarPlacement ToolbarPlacement
         {
             get { return _toolbarPlacement; }
@@ -103,7 +92,6 @@ namespace Xamarin.Forms.Platform.WinRT
                 _toolbarPlacementHelper.UpdateToolbarPlacement();
             }
         }
-#endif
 
 		public bool ShowBackButton
 		{
@@ -153,9 +141,8 @@ namespace Xamarin.Forms.Platform.WinRT
 
 			_commandBar = GetTemplateChild("CommandBar") as CommandBar;
 
-#if WINDOWS_UWP
+
 			_toolbarPlacementHelper.Initialize(_commandBar, () => ToolbarPlacement, GetTemplateChild);
-#endif
 
 			TaskCompletionSource<CommandBar> tcs = _commandBarTcs;
 		    tcs?.SetResult(_commandBar);

@@ -1,22 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using Windows.UI.Core;
-using Windows.UI.WebUI;
 using Windows.UI.Xaml.Controls;
-using Windows.Web.Http;
 using Xamarin.Forms.Internals;
 using static System.String;
 
-#if WINDOWS_UWP
+
 
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public class WebViewRenderer : ViewRenderer<WebView, Windows.UI.Xaml.Controls.WebView>, IWebViewDelegate
 	{

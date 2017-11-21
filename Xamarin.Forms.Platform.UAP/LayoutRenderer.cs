@@ -1,18 +1,11 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Media;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public class LayoutRenderer : ViewRenderer<Layout, FrameworkElement>
 	{

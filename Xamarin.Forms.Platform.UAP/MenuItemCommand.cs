@@ -2,13 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Input;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	internal class MenuItemCommand : ICommand
 	{

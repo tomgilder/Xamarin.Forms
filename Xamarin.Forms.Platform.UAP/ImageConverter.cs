@@ -1,13 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public class ImageConverter : Windows.UI.Xaml.Data.IValueConverter
 	{

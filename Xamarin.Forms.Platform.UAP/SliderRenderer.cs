@@ -3,13 +3,7 @@ using System.ComponentModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls.Primitives;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public class SliderRenderer : ViewRenderer<Slider, Windows.UI.Xaml.Controls.Slider>
 	{
@@ -42,11 +36,8 @@ namespace Xamarin.Forms.Platform.WinRT
 					if (Element.VerticalOptions.Alignment == LayoutAlignment.Center && Control.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal)
 					{
 						Control.VerticalAlignment = VerticalAlignment.Center;
-#if WINDOWS_UWP
+
 						slider.Margin = new Windows.UI.Xaml.Thickness(0, 7, 0, 0);
-#else
-						slider.Margin = new Windows.UI.Xaml.Thickness(0, 13, 0, 0);
-#endif
 					}
 				}
 

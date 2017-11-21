@@ -11,13 +11,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Xamarin.Forms.Internals;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public class CellControl : ContentControl
 	{

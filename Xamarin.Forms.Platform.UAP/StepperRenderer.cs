@@ -1,13 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public class StepperRenderer : ViewRenderer<Stepper, StepperControl>
 	{

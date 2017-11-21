@@ -4,19 +4,11 @@ using System.Threading.Tasks;
 using Xamarin.Forms.Controls.Issues;
 using WImageSource = Windows.UI.Xaml.Media.ImageSource;
 
-#if WINDOWS_UWP
 using Xamarin.Forms.Platform.UWP;
 using Xamarin.Forms.ControlGallery.WindowsUniversal;
 
 [assembly: ExportRenderer(typeof(_51173Image), typeof(_51173CustomImageRenderer))]
 namespace Xamarin.Forms.ControlGallery.WindowsUniversal
-#else
-using Xamarin.Forms.Platform.WinRT;
-using Xamarin.Forms.ControlGallery.WinRT;
-
-[assembly: ExportRenderer(typeof(_51173Image), typeof(_51173CustomImageRenderer))]
-namespace Xamarin.Forms.ControlGallery.WinRT
-#endif
 {
 	public sealed class BrokenImageSourceHandler : IImageSourceHandler
 	{

@@ -5,14 +5,9 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Xamarin.Forms.Internals;
 
-#if WINDOWS_UWP
 namespace Xamarin.Forms.Platform.UWP
-#else
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public abstract partial class Platform : IPlatform, INavigation, IToolbarProvider
 	{
@@ -65,14 +60,9 @@ namespace Xamarin.Forms.Platform.WinRT
 
 			_toolbarTracker.CollectionChanged += OnToolbarItemsChanged;
 
-#if !WINDOWS_UWP // UWP gets subscribed in Forms.Init
-			SubscribeAlertsAndActionSheets();
-#endif
 			UpdateBounds();
 
-#if WINDOWS_UWP
 			InitializeStatusBar();
-#endif
 		}
 
 		internal void SetPage(Page newRoot)
@@ -240,13 +230,6 @@ namespace Xamarin.Forms.Platform.WinRT
 
 		internal bool BackButtonPressed()
 		{
-#if !WINDOWS_UWP
-			if (_currentActionSheet != null)
-			{
-				CancelActionSheet();
-				return true;
-			}
-#endif
 			Page lastRoot = _navModel.Roots.Last();
 
 			bool handled = lastRoot.SendBackButtonPressed();
@@ -300,9 +283,9 @@ namespace Xamarin.Forms.Platform.WinRT
 			_currentPage = newPage;
 
 			UpdateToolbarTracker();
-#if WINDOWS_UWP
+
 			UpdateToolbarTitle(newPage);
-#endif
+
 			await UpdateToolbarItems();
 		}
 

@@ -7,13 +7,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Xamarin.Forms.Internals;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	internal sealed class WindowsSerializer : IDeserializer
 	{

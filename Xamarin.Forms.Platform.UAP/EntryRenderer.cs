@@ -1,21 +1,12 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Reflection;
-using Windows.Foundation.Metadata;
+﻿using System.ComponentModel;
 using Windows.System;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Xamarin.Forms.Internals;
 
-#if WINDOWS_UWP
+
 
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public class EntryRenderer : ViewRenderer<Entry, FormsTextBox>
 	{
@@ -115,13 +106,9 @@ namespace Xamarin.Forms.Platform.WinRT
 			if (args?.Key != VirtualKey.Enter)
 				return;
 
-#if WINDOWS_UWP
+
 			// Hide the soft keyboard; this matches the behavior of Forms on Android/iOS
 			Windows.UI.ViewManagement.InputPane.GetForCurrentView().TryHide();
-#else
-			// WinRT doesn't have TryHide(), so the best we can do is force the control to unfocus
-			UnfocusControl(Control);
-#endif
 
 			((IEntryController)Element).SendCompleted();
 		}

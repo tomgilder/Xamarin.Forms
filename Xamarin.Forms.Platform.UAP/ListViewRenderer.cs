@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
@@ -20,13 +17,7 @@ using Xamarin.Forms.Internals;
 using Xamarin.Forms.PlatformConfiguration.WindowsSpecific;
 using Specifics = Xamarin.Forms.PlatformConfiguration.WindowsSpecific.ListView;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public class ListViewRenderer : ViewRenderer<ListView, FrameworkElement>
 	{
@@ -34,22 +25,6 @@ namespace Xamarin.Forms.Platform.WinRT
 		bool _itemWasClicked;
 		bool _subscribedToItemClick;
 		bool _subscribedToTapped;
-
-
-#if !WINDOWS_UWP
-		public static readonly DependencyProperty HighlightWhenSelectedProperty = DependencyProperty.RegisterAttached("HighlightWhenSelected", typeof(bool), typeof(ListViewRenderer),
-			new PropertyMetadata(false));
-
-		public static bool GetHighlightWhenSelected(DependencyObject dependencyObject)
-		{
-			return (bool)dependencyObject.GetValue(HighlightWhenSelectedProperty);
-		}
-
-		public static void SetHighlightWhenSelected(DependencyObject dependencyObject, bool value)
-		{
-			dependencyObject.SetValue(HighlightWhenSelectedProperty, value);
-		}
-#endif
 
 		protected WListView List { get; private set; }
 
@@ -87,12 +62,6 @@ namespace Xamarin.Forms.Platform.WinRT
 
 				// WinRT throws an exception if you set ItemsSource directly to a CVS, so bind it.
 				List.DataContext = new CollectionViewSource { Source = Element.ItemsSource, IsSourceGrouped = Element.IsGroupingEnabled };
-
-#if !WINDOWS_UWP
-				var selected = Element.SelectedItem;
-				if (selected != null)
-					OnElementItemSelected(null, new SelectedItemChangedEventArgs(selected));
-#endif
 
 				UpdateGrouping();
 				UpdateHeader();
@@ -519,44 +488,8 @@ namespace Xamarin.Forms.Platform.WinRT
 
 		void OnListItemClicked(int index)
 		{
-#if !WINDOWS_UWP
-			// If we're on the phone , we need to cache the selected item in case the handler 
-			// we're about to call changes any item indexes;
-			// in some cases, those index changes will throw an exception we can't catch if 
-			// the listview has an item selected
-			object selectedItem = null;
-			if (Device.Idiom == TargetIdiom.Phone)
-			{
-				selectedItem = List.SelectedItem;
-				List.SelectedIndex = -1;
-				_deferSelection = true;
-			}
-#endif
-
 			Element.NotifyRowTapped(index, cell: null);
 			_itemWasClicked = true;
-
-#if !WINDOWS_UWP
-
-			if (Device.Idiom != TargetIdiom.Phone || List == null)
-			{
-				return;
-			}
-
-			_deferSelection = false;
-
-			if (_deferredSelectedItemChangedEvent != null)
-			{
-				// If there was a selection change attempt while RowTapped was being handled, replay it
-				OnElementItemSelected(_deferredSelectedItemChangedEvent.Item1, _deferredSelectedItemChangedEvent.Item2);
-				_deferredSelectedItemChangedEvent = null;
-			}
-			else if (List?.SelectedIndex == -1 && selectedItem != null)
-			{
-				// Otherwise, set the selection back to whatever it was before all this started
-				List.SelectedItem = selectedItem;
-			}
-#endif
 		}
 
 		void OnListItemClicked(object sender, ItemClickEventArgs e)
@@ -567,33 +500,6 @@ namespace Xamarin.Forms.Platform.WinRT
 
 		void OnControlSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-#if !WINDOWS_UWP
-			RestorePreviousSelectedVisual();
-
-			if (e.AddedItems.Count == 0)
-			{
-				// Deselecting an item is a valid SelectedItem change.
-				if (Element.SelectedItem != List.SelectedItem)
-				{
-					OnListItemClicked(List.SelectedIndex);
-				}
-
-				return;
-			}
-
-			object cell = e.AddedItems[0];
-			if (cell == null)
-				return;
-
-			if (Device.Idiom == TargetIdiom.Phone)
-			{
-				FrameworkElement element = FindElement(cell);
-				if (element != null)
-				{
-					SetSelectedVisual(element);
-				}
-			}
-#endif
 			if (Element.SelectedItem != List.SelectedItem && !_itemWasClicked)
 				((IElementController)Element).SetValueFromRenderer(ListView.SelectedItemProperty, List.SelectedItem);
 
@@ -611,92 +517,8 @@ namespace Xamarin.Forms.Platform.WinRT
 			return null;
 		}
 
-#if !WINDOWS_UWP
-
-		void RestorePreviousSelectedVisual()
-		{
-			foreach (BrushedElement highlight in _highlightedElements)
-			{
-				if (highlight.IsBound)
-				{
-					highlight.Element.SetForeground(highlight.BrushBinding);
-				}
-				else
-				{
-					highlight.Element.SetForeground(highlight.Brush);
-				}
-			}
-
-			_highlightedElements.Clear();
-		}
-
-		void SetSelectedVisual(FrameworkElement element)
-		{
-			// Find all labels in children and set their foreground color to accent color
-			IEnumerable<FrameworkElement> elementsToHighlight = FindPhoneHighlights(element);
-			var systemAccentBrush = (Brush)WApp.Current.Resources["SystemColorControlAccentBrush"];
-
-			foreach (FrameworkElement toHighlight in elementsToHighlight)
-			{
-				Brush brush = null;
-				WBinding binding = toHighlight.GetForegroundBinding();
-				if (binding == null)
-					brush = toHighlight.GetForeground();
-
-				var brushedElement = new BrushedElement(toHighlight, binding, brush);
-				_highlightedElements.Add(brushedElement);
-
-				toHighlight.SetForeground(systemAccentBrush);
-			}
-		}
-
-		IEnumerable<FrameworkElement> FindPhoneHighlights(FrameworkElement element)
-		{
-			FrameworkElement parent = element;
-			while (true)
-			{
-				element = parent;
-				if (element is CellControl)
-					break;
-
-				parent = VisualTreeHelper.GetParent(element) as FrameworkElement;
-				if (parent == null)
-				{
-					parent = element;
-					break;
-				}
-			}
-
-			return FindPhoneHighlightCore(parent);
-		}
-
-		IEnumerable<FrameworkElement> FindPhoneHighlightCore(DependencyObject element)
-		{
-			int children = VisualTreeHelper.GetChildrenCount(element);
-			for (var i = 0; i < children; i++)
-			{
-				DependencyObject child = VisualTreeHelper.GetChild(element, i);
-
-				var label = child as LabelRenderer;
-				var childElement = child as FrameworkElement;
-				if (childElement != null && (GetHighlightWhenSelected(childElement) || label != null))
-				{
-					if (label != null)
-						yield return label.Control;
-					else
-						yield return childElement;
-				}
-
-				foreach (FrameworkElement recursedElement in FindPhoneHighlightCore(childElement))
-					yield return recursedElement;
-			}
-		}
-#endif
-
 		bool _deferSelection = false;
 		Tuple<object, SelectedItemChangedEventArgs> _deferredSelectedItemChangedEvent;
-
-#if WINDOWS_UWP
 
 		protected override AutomationPeer OnCreateAutomationPeer()
 		{
@@ -705,6 +527,5 @@ namespace Xamarin.Forms.Platform.WinRT
 				: new ListViewAutomationPeer(List);
 		}
 
-#endif
 	}
 }

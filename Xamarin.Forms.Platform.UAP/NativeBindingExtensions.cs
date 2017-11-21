@@ -4,13 +4,8 @@ using System.ComponentModel;
 using Windows.UI.Xaml;
 using Xamarin.Forms.Internals;
 using static System.String;
-#if WINDOWS_UWP
 
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public static class NativeBindingExtensions
 	{

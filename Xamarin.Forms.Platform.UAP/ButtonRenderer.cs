@@ -10,13 +10,7 @@ using WButton = Windows.UI.Xaml.Controls.Button;
 using WImage = Windows.UI.Xaml.Controls.Image;
 using Windows.UI.Xaml.Input;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	public class ButtonRenderer : ViewRenderer<Button, FormsButton>
 	{

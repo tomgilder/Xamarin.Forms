@@ -4,13 +4,7 @@ using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Xaml;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	internal static class Extensions
 	{

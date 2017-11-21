@@ -3,13 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 
-#if WINDOWS_UWP
-
 namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
 {
 	internal static class TaskExtensions
 	{
